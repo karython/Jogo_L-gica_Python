@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aventura do Programador Iniciante</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🐍 Aventura do Programador Iniciante 🐍</h1>
+            <p>Uma jornada épica pela lógica de programação com Python!</p>
+        </div>
+
+        <div class="game-screen">
+            <!-- Estatísticas do Jogador -->
+            <div class="stats">
+                <div class="stat">
+                    <div>💪 XP</div>
+                    <div id="xp">0</div>
+                </div>
+                <div class="stat">
+                    <div>🏆 Fase</div>
+                    <div id="level">1</div>
+                </div>
+                <div class="stat">
+                    <div>⚡ Energia</div>
+                    <div id="energy">100</div>
+                </div>
+                <div class="stat">
+                    <div>🧠 Conhecimento</div>
+                    <div id="knowledge">Iniciante</div>
+                </div>
+            </div>
+
+            <!-- Barra de Progresso -->
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress" style="width: 0%"></div>
+            </div>
+
+            <!-- Inventário -->
+            <div id="inventory" class="inventory"></div>
+
+            <!-- Área Principal do Jogo -->
+            <div id="game-content">
+                <!-- Conteúdo será inserido dinamicamente -->
+            </div>
+
+            <!-- Área de Feedback -->
+            <div id="feedback"></div>
+        </div>
+    </div>
+
+    <script src="/static/js/scripts.js"></script>
+</body>
+</html>
