@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aventura do Programador com IA | GomesTechnology</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="stylesheet" href="static/css/styles-interpreter.css">
+    <link rel="icon" href="static/img/serpente.png" type="image/png">
+    <!-- Pyodide - Python no navegador -->
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Melhorado com Badge IA -->
+        <div class="header">
+            <div class="header-content">
+                <h1>🐍 Aventura do Programador Iniciante 🐍</h1>
+                <p>Uma jornada épica pela lógica de programação com Python!</p>
+                <div class="ai-badge" id="ai-status">
+                    <span class="ai-badge-icon">🤖</span>
+                    <span class="ai-badge-text">Validação Inteligente</span>
+                    <span class="ai-badge-status" id="api-status-indicator">
+                        <span class="status-dot connecting"></span>
+                        <span class="status-text">Conectando...</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-screen">
+            <!-- Estatísticas do Jogador com Animações -->
+            <div class="stats">
+                <div class="stat stat-xp">
+                    <div class="stat-icon">💪</div>
+                    <div class="stat-info">
+                        <div class="stat-label">XP</div>
+                        <div class="stat-value" id="xp">0</div>
+                    </div>
+                </div>
+                <div class="stat stat-level">
+                    <div class="stat-icon">🏆</div>
+                    <div class="stat-info">
+                        <div class="stat-label">Fase</div>
+                        <div class="stat-value" id="level">1</div>
+                    </div>
+                </div>
+                <div class="stat stat-energy">
+                    <div class="stat-icon">⚡</div>
+                    <div class="stat-info">
+                        <div class="stat-label">Energia</div>
+                        <div class="stat-value" id="energy">2</div>
+                    </div>
+                </div>
+                <div class="stat stat-knowledge">
+                    <div class="stat-icon">🧠</div>
+                    <div class="stat-info">
+                        <div class="stat-label">Nível</div>
+                        <div class="stat-value" id="knowledge">Iniciante</div>
+                    </div>
+                </div>
+                <div class="stat stat-hints">
+                    <div class="stat-icon">💡</div>
+                    <div class="stat-info">
+                        <div class="stat-label">Dicas</div>
+                        <div class="stat-value" id="hintCount">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barra de Progresso Melhorada -->
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress" style="width: 0%">
+                        <span class="progress-text" id="progress-text">0%</span>
+                    </div>
+                </div>
+                <div class="progress-info">
+                    <span id="current-phase">Fase 1</span>
+                    <span id="total-phases">de 21</span>
+                </div>
+            </div>
+
+            <!-- Inventário com Scroll -->
+            <div class="inventory-container">
+                <div class="inventory-header">
+                    <span class="inventory-icon">🎒</span>
+                    <span class="inventory-title">Inventário</span>
+                    <span class="inventory-count" id="inventory-count">0 itens</span>
+                </div>
+                <div id="inventory" class="inventory"></div>
+            </div>
+
+            <!-- Área Principal do Jogo -->
+            <div id="game-content">
+                <!-- Conteúdo será inserido dinamicamente -->
+            </div>
+
+            <!-- Área de Feedback -->
+            <div id="feedback"></div>
+
+            <!-- Loading do Pyodide -->
+            <div id="pyodide-loading" class="loading-overlay">
+                <div class="loading-content">
+                    <div class="loading-spinner"></div>
+                    <div class="loading-text">
+                        <h3>⚙️ Carregando Interpretador Python...</h3>
+                        <p>Isso pode levar alguns segundos...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading da IA -->
+            <div id="ai-loading" class="loading-overlay" style="display: none;">
+                <div class="loading-content ai-loading">
+                    <div class="ai-thinking-animation">
+                        <div class="brain-icon">🤖</div>
+                        <div class="thinking-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="loading-text">
+                        <h3>IA analisando seu código...</h3>
+                        <p id="ai-loading-status">Validando solução</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Score Badge (aparece após validação) -->
+            <div id="score-badge" class="score-badge" style="display: none;">
+                <div class="score-badge-content">
+                    <div class="score-circle">
+                        <svg class="score-circle-svg" viewBox="0 0 100 100">
+                            <circle class="score-circle-bg" cx="50" cy="50" r="45"></circle>
+                            <circle class="score-circle-progress" id="score-circle-progress" cx="50" cy="50" r="45"></circle>
+                        </svg>
+                        <div class="score-value" id="score-value">0</div>
+                    </div>
+                    <div class="score-label">Pontuação IA</div>
+                </div>
+            </div>
+
+            <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+            <script src="static/js/scripts.js"></script>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <p>Todos os Direitos reservados © Desenvolvido por <a href="https://karythongomes.com.br" target="_blank"><strong>GomesTechnology</strong></a></p>
+            <p class="footer-tech">
+                <span class="tech-badge"> Python | IA Groq | Flask</span>
+
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
